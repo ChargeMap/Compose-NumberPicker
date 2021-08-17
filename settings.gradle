@@ -1,0 +1,2 @@
+include ":sample", ":lib"
+rootProject.name = "Compose-NumberPicker"

@@ -39,7 +39,7 @@ class PublishPlugin : Plugin<Project> {
 
                 pom.withXml {
                     asNode().apply {
-                        appendNode("description", project.libProperties.getProperty("lib.desc"))
+                        /*appendNode("description", project.libProperties.getProperty("lib.desc"))
                         appendNode("name", project.name)
                         appendNode("url", "https://github.com/${project.libProperties.getProperty("lib.group")}/${project.libProperties.getProperty("lib.name")}")
                         appendNode("licenses").appendNode("license").apply {
@@ -53,7 +53,7 @@ class PublishPlugin : Plugin<Project> {
                         }
                         appendNode("scm").apply {
                             appendNode("url", "https://github.com/${project.libProperties.getProperty("lib.group")}/${project.libProperties.getProperty("lib.name")}")
-                        }
+                        }*/
                         appendNode("dependencies").apply {
                             project.configurations.getByName("implementation") {
                                 dependencies.forEach {

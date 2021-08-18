@@ -5,10 +5,6 @@ plugins {
 
 gradlePlugin {
     plugins {
-        register("publish") {
-            id = "publish"
-            implementationClass = "PublishPlugin"
-        }
         register("common") {
             id = "common"
             implementationClass = "CommonPlugin"

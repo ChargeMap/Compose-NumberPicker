@@ -11,8 +11,8 @@ class CommonPlugin : Plugin<Project> {
             buildToolsVersion("30.0.2")
 
             defaultConfig {
-                versionCode = project.libProperties.getProperty("version.code").toString().toInt()
-                versionName = project.libProperties.getProperty("version.name").toString()
+                versionCode = project.gradleProperties.getProperty("VERSION_CODE").toString().toInt()
+                versionName = project.gradleProperties.getProperty("VERSION_NAME").toString()
                 minSdk = 21
                 targetSdk = 30
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -12,7 +12,6 @@ mavenPublish {
 dependencies {
     api("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
     api("androidx.compose.material:material:${Versions.compose}")
-    api("androidx.compose.animation:animation:${Versions.compose}")
 
     testImplementation("junit:junit:4.13.1")
 }

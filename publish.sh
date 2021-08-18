@@ -9,5 +9,3 @@ git push --follow-tags
 ./gradlew build
 ./gradlew uploadArchives --no-daemon --no-parallel
 ./gradlew closeAndReleaseRepository
-#./gradlew bintrayUpload -PbintrayUser="$2" -PbintrayKey="$3"
-#./gradlew :lib:publishAllPublicationsToGithubRepository

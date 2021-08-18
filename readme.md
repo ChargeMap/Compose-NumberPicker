@@ -17,9 +17,9 @@ Android library providing a Number Picker for Jetpack Compose.
 
 In your **module** *build.gradle* :
 
-```bash
+```
 dependencies {
-  implementation "com.chargemap.android:compose-numberpicker:latestVersion"
+  implementation "com.chargemap.compose:numberpicker:latestVersion"
 }
 ```
 

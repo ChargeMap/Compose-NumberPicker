@@ -28,7 +28,7 @@ class PublishPlugin : Plugin<Project> {
             archiveClassifier.set("sources")
         }
 
-        project.extensions.findByType(PublishingExtension::class.java)?.apply{
+        project.extensions.findByType(PublishingExtension::class.java)?.apply {
             publications.create<MavenPublication>("central") {
                 artifact("${project.buildDir}/outputs/aar/lib-release.aar")
                 artifact(sourcesJar)

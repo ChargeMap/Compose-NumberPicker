@@ -6,15 +6,15 @@ import org.gradle.api.Project
 class CommonPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        project.extensions.findByType(BaseExtension::class.java)?.apply{
+        project.extensions.findByType(BaseExtension::class.java)?.apply {
             compileSdkVersion(30)
             buildToolsVersion("30.0.2")
 
             defaultConfig {
                 versionCode = project.libProperties.getProperty("version.code").toString().toInt()
                 versionName = project.libProperties.getProperty("version.name").toString()
-                minSdkVersion(21)
-                targetSdkVersion(30)
+                minSdk = 21
+                targetSdk = 30
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 vectorDrawables.useSupportLibrary = true
             }
@@ -33,6 +33,12 @@ class CommonPlugin : Plugin<Project> {
             compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
 
             testOptions.unitTests.isReturnDefaultValues = false
+
+            composeOptions {
+                kotlinCompilerExtensionVersion = Versions.compose
+            }
+
+            buildFeatures.compose = true
         }
     }
 }

@@ -5,7 +5,6 @@ import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.create
 import java.io.File
-import java.net.URI
 import java.util.*
 
 fun readFile(path: String): File {
@@ -65,17 +64,6 @@ class PublishPlugin : Plugin<Project> {
                                 }
                             }
                         }
-                    }
-                }
-            }
-
-            repositories {
-                maven {
-                    name = "Github"
-                    url = URI("https://maven.pkg.github.com/Chargemap/Android-Compose-NumberPicker")
-                    credentials {
-                        username = project.commonGradleProperties.getProperty("gpr.user")
-                        password = project.commonGradleProperties.getProperty("gpr.token")
                     }
                 }
             }

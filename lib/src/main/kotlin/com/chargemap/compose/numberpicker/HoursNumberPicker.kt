@@ -35,6 +35,7 @@ fun HoursNumberPicker(
     modifier: Modifier = Modifier,
     value: Hours,
     hoursDivider: (@Composable () -> Unit)? = null,
+    minutesDivider: (@Composable () -> Unit)? = null,
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -46,6 +47,7 @@ fun HoursNumberPicker(
                 value = value,
                 hoursRange = (0..23),
                 hoursDivider = hoursDivider,
+                minutesDivider = minutesDivider,
                 onValueChange = onValueChange,
                 dividersColor = dividersColor,
                 textStyle = textStyle,
@@ -54,8 +56,9 @@ fun HoursNumberPicker(
             AMPMHoursNumberPicker(
                 modifier = modifier,
                 value = value,
-                hoursRange = (0..23),
+                hoursRange = (1..12),
                 hoursDivider = hoursDivider,
+                minutesDivider = minutesDivider,
                 onValueChange = onValueChange,
                 dividersColor = dividersColor,
                 textStyle = textStyle,
@@ -64,11 +67,12 @@ fun HoursNumberPicker(
 }
 
 @Composable
-private fun FullHoursNumberPicker(
+fun FullHoursNumberPicker(
     modifier: Modifier = Modifier,
     value: FullHours,
     hoursRange: IntRange,
     hoursDivider: (@Composable () -> Unit)? = null,
+    minutesDivider: (@Composable () -> Unit)? = null,
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -100,15 +104,18 @@ private fun FullHoursNumberPicker(
             textStyle = textStyle,
             range = (0..59)
         )
+
+        minutesDivider?.invoke()
     }
 }
 
 @Composable
-private fun AMPMHoursNumberPicker(
+fun AMPMHoursNumberPicker(
     modifier: Modifier = Modifier,
     value: AMPMHours,
     hoursRange: IntRange,
     hoursDivider: (@Composable () -> Unit)? = null,
+    minutesDivider: (@Composable () -> Unit)? = null,
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -141,9 +148,19 @@ private fun AMPMHoursNumberPicker(
             range = (0..59)
         )
 
+        minutesDivider?.invoke()
+
         NumberPicker(
-            modifier = Modifier.weight(1f),
-            value = value.minutes,
+            value = when (value.dayTime) {
+                AMPMHours.DayTime.AM -> 0
+                else -> 1
+            },
+            label = {
+                when (it) {
+                    0 -> "AM"
+                    else -> "PM"
+                }
+            },
             onValueChange = {
                 onValueChange(
                     value.copy(

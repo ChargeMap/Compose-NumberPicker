@@ -1,11 +1,17 @@
 # Jetpack Compose Number Picker
 
-Android library which provides a Number Picker for Jetpack Compose.
+Android library providing a Number Picker for Jetpack Compose.
+
+[![chargemap](https://github.com/chargemap.png?size=50)](https://chargemap.com)
 
 [![Maven version](https://img.shields.io/maven-central/v/io.github.chargemap.android/compose-numberpicker?style=for-the-badge)](https://maven-badges.herokuapp.com/maven-central/io.github.chargemap.android/compose-numberpicker)
 
 ![License MIT](https://img.shields.io/badge/MIT-342e38?style=flat-square&label=License)
 ![Android minimuml version](https://img.shields.io/badge/21+-342e38?style=flat-square&label=Minimum&logo=android)
+
+## Showcase
+
+<img src="art/showcase.gif" width="250"/>
 
 ## Installation
 
@@ -19,13 +25,73 @@ dependencies {
 
 ## Usage
 
-#### Declaration
+### Simple NumberPicker
 
 ```
+var pickerValue by remember { mutableStateOf(0) }
+
+NumberPicker(
+    value = pickerValue,
+    range = 0..10,
+    onValueChange = {
+        pickerValue = it
+    }
+)
+
+```
+
+### 24 hours HoursNumberPicker
+
+```
+var pickerValue by remember { mutableStateOf<Hours>(FullHours(12, 43)) }
+
+HoursNumberPicker(
+    dividersColor = MaterialTheme.colors.primary,
+    value = pickerValue,
+    onValueChange = {
+        pickerValue = it
+    },
+    hoursDivider = {
+        Text(
+            modifier = Modifier.size(24.dp),
+            textAlign = TextAlign.Center,
+            text = ":"
+        )
+    }
+)
+
+```
+
+### AM/PM HoursNumberPicker
+
+```
+var pickerValue by remember { mutableStateOf<Hours>(AMPMHours(9, 12, AMPMHours.DayTime.PM )) }
+
+HoursNumberPicker(
+    dividersColor = MaterialTheme.colors.primary,
+    value = pickerValue,
+    onValueChange = {
+        pickerValue = it
+    },
+    hoursDivider = {
+        Text(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            textAlign = TextAlign.Center,
+            text = "hours"
+        )
+    },
+    minutesDivider = {
+        Text(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            textAlign = TextAlign.Center,
+            text = "minutes"
+        )
+    }
+)
 
 ```
 
 ## Contributors
 
-| [![raphaël](https://github.com/r4phab.png?size=150)](https://github.com/r4phab) | [Raphaël Bertin](https://github.com/r4phab) |
+| [![raphaël](https://github.com/r4phab.png?size=120)](https://github.com/r4phab) | [Raphaël Bertin](https://github.com/r4phab) |
 |:------------------------------------------------------------------------------:|--------------|

@@ -20,6 +20,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -29,7 +30,7 @@ import kotlin.math.roundToInt
 fun NumberPicker(
     modifier: Modifier = Modifier,
     label: (Int) -> String = {
-        
+        it.toString()
     },
     value: Int,
     onValueChange: (Int) -> Unit,
@@ -44,14 +45,15 @@ fun NumberPicker(
 
     fun animatedStateValue(offset: Float): Int = value - (offset / halfNumbersColumnHeightPx).toInt()
 
-    val animatedOffset = remember { Animatable(0f) }.apply {
-        val offsetRange = remember(value, range) {
-            val first = -(range.last - value) * halfNumbersColumnHeightPx
-            val last = -(range.first - value) * halfNumbersColumnHeightPx
-            first..last
+    val animatedOffset = remember { Animatable(0f) }
+        .apply {
+            val offsetRange = remember(value, range) {
+                val first = -(range.last - value) * halfNumbersColumnHeightPx
+                val last = -(range.first - value) * halfNumbersColumnHeightPx
+                first..last
+            }
+            updateBounds(offsetRange.start, offsetRange.endInclusive)
         }
-        updateBounds(offsetRange.start, offsetRange.endInclusive)
-    }
 
     val coercedAnimatedOffset = animatedOffset.value % halfNumbersColumnHeightPx
     val animatedStateValue = animatedStateValue(animatedOffset.value)
@@ -105,19 +107,19 @@ fun NumberPicker(
                 ProvideTextStyle(textStyle) {
                     if (range.contains(animatedStateValue - 1))
                         Label(
-                            text = (animatedStateValue - 1).toString(),
+                            text = label(animatedStateValue - 1),
                             modifier = baseLabelModifier
                                 .offset(y = -halfNumbersColumnHeight)
                                 .alpha(maxOf(minimumAlpha, coercedAnimatedOffset / halfNumbersColumnHeightPx))
                         )
                     Label(
-                        text = animatedStateValue.toString(),
+                        text = label(animatedStateValue),
                         modifier = baseLabelModifier
                             .alpha((maxOf(minimumAlpha, 1 - kotlin.math.abs(coercedAnimatedOffset) / halfNumbersColumnHeightPx)))
                     )
                     if (range.contains(animatedStateValue + 1))
                         Label(
-                            text = (animatedStateValue + 1).toString(),
+                            text = label(animatedStateValue + 1),
                             modifier = baseLabelModifier
                                 .offset(y = halfNumbersColumnHeight)
                                 .alpha(maxOf(minimumAlpha, -coercedAnimatedOffset / halfNumbersColumnHeightPx))
@@ -146,7 +148,11 @@ fun NumberPicker(
             .toDp()
 
         // Set the size of the layout as big as it can
-        layout(dividersWidth.toPx().toInt(), placeables.sumOf { it.height }) {
+        layout(dividersWidth.toPx().toInt(), placeables
+            .sumOf {
+                it.height
+            }
+        ) {
             // Track the y co-ord we have placed children up to
             var yPosition = 0
 
@@ -172,6 +178,7 @@ private fun Label(text: String, modifier: Modifier) {
             })
         },
         text = text,
+        textAlign = TextAlign.Center,
     )
 }
 

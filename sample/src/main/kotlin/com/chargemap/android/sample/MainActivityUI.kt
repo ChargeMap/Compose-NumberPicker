@@ -1,28 +1,30 @@
 package com.chargemap.android.sample
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.chargemap.android.compose.numberpicker.Hours
-import com.chargemap.android.compose.numberpicker.HoursNumberPicker
-import com.chargemap.android.compose.numberpicker.NumberPicker
+import com.chargemap.compose.numberpicker.*
 
 @Composable
 fun MainActivityUI() {
 
     var picker1Value by remember { mutableStateOf(0) }
-    var picker2Value by remember { mutableStateOf(0) }
-    var picker3Value by remember { mutableStateOf(0) }
 
-    var hoursPicker1Value by remember { mutableStateOf(Hours(12, 43)) }
+    var hoursPicker1Value by remember { mutableStateOf<Hours>(FullHours(12, 43)) }
+    var hoursPicker2Value by remember { mutableStateOf<Hours>(AMPMHours(9, 43, AMPMHours.DayTime.PM)) }
+    var hoursPicker3Value by remember { mutableStateOf<Hours>(FullHours(9, 43)) }
+    var hoursPicker4Value by remember { mutableStateOf<Hours>(FullHours(11, 36)) }
+
+    val scrollState = rememberScrollState()
 
     MaterialTheme {
         Scaffold(
@@ -30,59 +32,113 @@ fun MainActivityUI() {
                 TopAppBar(title = { Text(stringResource(id = R.string.app_name)) })
             }
         ) {
-            Column(modifier = Modifier.fillMaxSize()) {
-                Box {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState)
+            ) {
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
                     NumberPicker(
-                        modifier = Modifier
-                            .align(Alignment.Center),
                         value = picker1Value,
                         range = 0..10,
                         onValueChange = {
                             picker1Value = it
                         }
                     )
-                }
 
-                Row(
-                    modifier = Modifier
-                        .padding(16.dp)
-                ) {
-                    NumberPicker(
+                    HoursNumberPicker(
                         modifier = Modifier
-                            .weight(1f),
-                        value = picker2Value,
-                        range = 0..10,
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
+                        dividersColor = MaterialTheme.colors.error,
+                        value = hoursPicker1Value,
                         onValueChange = {
-                            picker2Value = it
+                            hoursPicker1Value = it
+                        },
+                        hoursDivider = {
+                            Text(
+                                modifier = Modifier.size(24.dp),
+                                textAlign = TextAlign.Center,
+                                text = ":"
+                            )
                         }
                     )
-                    NumberPicker(
+
+                    HoursNumberPicker(
                         modifier = Modifier
-                            .weight(1f),
-                        value = picker3Value,
-                        range = 0..10,
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
+                        dividersColor = MaterialTheme.colors.secondary,
+                        value = hoursPicker2Value,
                         onValueChange = {
-                            picker3Value = it
+                            hoursPicker2Value = it
+                        },
+                        hoursDivider = {
+                            Text(
+                                modifier = Modifier.size(24.dp),
+                                textAlign = TextAlign.Center,
+                                text = ":"
+                            )
+                        },
+                        minutesDivider = {
+                            Spacer(
+                                modifier = Modifier.size(24.dp),
+                            )
+                        }
+                    )
+
+                    HoursNumberPicker(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
+                        value = hoursPicker3Value,
+                        onValueChange = {
+                            hoursPicker3Value = it
+                        },
+                        hoursDivider = {
+                            Text(
+                                modifier = Modifier.padding(horizontal = 8.dp),
+                                textAlign = TextAlign.Center,
+                                text = "h"
+                            )
+                        },
+                        minutesDivider = {
+                            Text(
+                                modifier = Modifier.padding(horizontal = 8.dp),
+                                textAlign = TextAlign.Center,
+                                text = "m"
+                            )
+                        }
+                    )
+
+                    HoursNumberPicker(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
+                        value = hoursPicker4Value,
+                        onValueChange = {
+                            hoursPicker4Value = it
+                        },
+                        hoursDivider = {
+                            Text(
+                                modifier = Modifier.padding(horizontal = 8.dp),
+                                textAlign = TextAlign.Center,
+                                text = "hours"
+                            )
+                        },
+                        minutesDivider = {
+                            Text(
+                                modifier = Modifier.padding(horizontal = 8.dp),
+                                textAlign = TextAlign.Center,
+                                text = "minutes"
+                            )
                         }
                     )
                 }
-
-                HoursNumberPicker(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(16.dp),
-                    value = hoursPicker1Value,
-                    onValueChange = {
-                        hoursPicker1Value = it
-                    },
-                    hoursDivider = {
-                        Text(
-                            modifier = Modifier.size(24.dp),
-                            textAlign = TextAlign.Center,
-                            text = ":"
-                        )
-                    }
-                )
             }
         }
     }

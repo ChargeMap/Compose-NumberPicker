@@ -1,5 +1,6 @@
 package com.chargemap.compose.numberpicker
 
+import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
@@ -26,11 +27,24 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
+fun getIndexForOffset(range: Iterable<Int>, value: Int, offset: Float, halfNumbersColumnHeightPx: Float): Int {
+    val indexOf = range.indexOf(value) + range.first() - (offset / halfNumbersColumnHeightPx).toInt()
+    return when (val indexInRange = range.indexOf(indexOf)) {
+        -1 -> indexOf
+        else -> indexInRange
+    }.let {
+        minOf(it, range.count() - 1)
+    }.let {
+        maxOf(0, it)
+    }
+}
+
+
 @Composable
 fun NumberPicker(
     modifier: Modifier = Modifier,
     label: (Int) -> String = {
-        range.elementAt(it).toString()
+        it.toString()
     },
     value: Int,
     onValueChange: (Int) -> Unit,
@@ -38,27 +52,27 @@ fun NumberPicker(
     range: Iterable<Int>,
     textStyle: TextStyle = LocalTextStyle.current,
 ) {
-    val coroutineScope = rememberCoroutineScope()
+    val minimumAlpha = 0.3f
+    val verticalMargin = 8.dp
     val numbersColumnHeight = 80.dp
     val halfNumbersColumnHeight = numbersColumnHeight / 2
     val halfNumbersColumnHeightPx = with(LocalDensity.current) { halfNumbersColumnHeight.toPx() }
 
-    fun animatedStateValue(offset: Float): Int = value - (offset / halfNumbersColumnHeightPx).toInt()
+    val coroutineScope = rememberCoroutineScope()
 
     val animatedOffset = remember { Animatable(0f) }
         .apply {
             val offsetRange = remember(value, range) {
-                -((range.count() - 1) - value) * halfNumbersColumnHeightPx to value * halfNumbersColumnHeightPx
+                -((range.count() - 1) - range.indexOf(value)) * halfNumbersColumnHeightPx to value * halfNumbersColumnHeightPx
             }
             updateBounds(offsetRange.first, offsetRange.second)
         }
 
     val coercedAnimatedOffset = animatedOffset.value % halfNumbersColumnHeightPx
-    val animatedStateValue = animatedStateValue(animatedOffset.value)
+
+    val indexOfElement = getIndexForOffset(range, value, animatedOffset.value, halfNumbersColumnHeightPx)
 
     var dividersWidth by remember { mutableStateOf(0.dp) }
-    val minimumAlpha = 0.3f
-    val verticalMargin = 8.dp
 
     Layout(
         modifier = modifier
@@ -83,7 +97,10 @@ fun NumberPicker(
                             }
                         ).endState.value
 
-                        onValueChange(animatedStateValue(endValue))
+                        val result = range.elementAt(getIndexForOffset(range, value, endValue, halfNumbersColumnHeightPx))
+                        Log.e("Compose", "Value -> $result")
+
+                        onValueChange(result)
                         animatedOffset.snapTo(0f)
                     }
                 }
@@ -103,21 +120,21 @@ fun NumberPicker(
             ) {
                 val baseLabelModifier = Modifier.align(Alignment.Center)
                 ProvideTextStyle(textStyle) {
-                    if (animatedStateValue > 0)
+                    if (indexOfElement > 0)
                         Label(
-                            text = label(animatedStateValue - 1),
+                            text = label(range.elementAt(indexOfElement - 1)),
                             modifier = baseLabelModifier
                                 .offset(y = -halfNumbersColumnHeight)
                                 .alpha(maxOf(minimumAlpha, coercedAnimatedOffset / halfNumbersColumnHeightPx))
                         )
                     Label(
-                        text = label(animatedStateValue),
+                        text = label(range.elementAt(indexOfElement)),
                         modifier = baseLabelModifier
                             .alpha((maxOf(minimumAlpha, 1 - kotlin.math.abs(coercedAnimatedOffset) / halfNumbersColumnHeightPx)))
                     )
-                    if (animatedStateValue < range.count() - 1)
+                    if (indexOfElement < range.count() - 1)
                         Label(
-                            text = label(animatedStateValue + 1),
+                            text = label(range.elementAt(indexOfElement + 1)),
                             modifier = baseLabelModifier
                                 .offset(y = halfNumbersColumnHeight)
                                 .alpha(maxOf(minimumAlpha, -coercedAnimatedOffset / halfNumbersColumnHeightPx))

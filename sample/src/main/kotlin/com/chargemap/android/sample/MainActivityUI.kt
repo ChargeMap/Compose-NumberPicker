@@ -1,5 +1,6 @@
 package com.chargemap.android.sample
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,7 +22,7 @@ fun MainActivityUI() {
 
     var hoursPicker1Value by remember { mutableStateOf<Hours>(FullHours(12, 43)) }
     var hoursPicker2Value by remember { mutableStateOf<Hours>(AMPMHours(9, 43, AMPMHours.DayTime.PM)) }
-    var hoursPicker3Value by remember { mutableStateOf<Hours>(FullHours(9, 43)) }
+    var hoursPicker3Value by remember { mutableStateOf<Hours>(FullHours(9, 20)) }
     var hoursPicker4Value by remember { mutableStateOf<Hours>(FullHours(11, 36)) }
 
     val scrollState = rememberScrollState()
@@ -74,7 +75,6 @@ fun MainActivityUI() {
                             .padding(vertical = 16.dp),
                         dividersColor = MaterialTheme.colors.secondary,
                         value = hoursPicker2Value,
-                        minutesRange = IntProgression.fromClosedRange(0, 50, 10),
                         onValueChange = {
                             hoursPicker2Value = it
                         },
@@ -98,8 +98,10 @@ fun MainActivityUI() {
                             .padding(vertical = 16.dp),
                         value = hoursPicker3Value,
                         onValueChange = {
+                            Log.e("Compose", "$it")
                             hoursPicker3Value = it
                         },
+                        minutesRange = IntProgression.fromClosedRange(0, 50, 10),
                         hoursDivider = {
                             Text(
                                 modifier = Modifier.padding(horizontal = 8.dp),

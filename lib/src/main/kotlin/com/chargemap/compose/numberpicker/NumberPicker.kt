@@ -98,8 +98,6 @@ fun NumberPicker(
                         ).endState.value
 
                         val result = range.elementAt(getIndexForOffset(range, value, endValue, halfNumbersColumnHeightPx))
-                        Log.e("Compose", "Value -> $result")
-
                         onValueChange(result)
                         animatedOffset.snapTo(0f)
                     }

@@ -98,7 +98,6 @@ fun MainActivityUI() {
                             .padding(vertical = 16.dp),
                         value = hoursPicker3Value,
                         onValueChange = {
-                            Log.e("Compose", "$it")
                             hoursPicker3Value = it
                         },
                         minutesRange = IntProgression.fromClosedRange(0, 50, 10),

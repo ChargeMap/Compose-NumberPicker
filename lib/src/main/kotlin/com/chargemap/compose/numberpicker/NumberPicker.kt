@@ -30,12 +30,12 @@ import kotlin.math.roundToInt
 fun NumberPicker(
     modifier: Modifier = Modifier,
     label: (Int) -> String = {
-        it.toString()
+        range.elementAt(it).toString()
     },
     value: Int,
     onValueChange: (Int) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
-    range: IntRange,
+    range: Iterable<Int>,
     textStyle: TextStyle = LocalTextStyle.current,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -48,11 +48,9 @@ fun NumberPicker(
     val animatedOffset = remember { Animatable(0f) }
         .apply {
             val offsetRange = remember(value, range) {
-                val first = -(range.last - value) * halfNumbersColumnHeightPx
-                val last = -(range.first - value) * halfNumbersColumnHeightPx
-                first..last
+                -((range.count() - 1) - value) * halfNumbersColumnHeightPx to value * halfNumbersColumnHeightPx
             }
-            updateBounds(offsetRange.start, offsetRange.endInclusive)
+            updateBounds(offsetRange.first, offsetRange.second)
         }
 
     val coercedAnimatedOffset = animatedOffset.value % halfNumbersColumnHeightPx
@@ -64,7 +62,6 @@ fun NumberPicker(
 
     Layout(
         modifier = modifier
-            .padding(vertical = numbersColumnHeight / 3 + verticalMargin * 2)
             .draggable(
                 orientation = Orientation.Vertical,
                 state = rememberDraggableState { deltaY ->
@@ -90,7 +87,8 @@ fun NumberPicker(
                         animatedOffset.snapTo(0f)
                     }
                 }
-            ),
+            )
+            .padding(vertical = numbersColumnHeight / 3 + verticalMargin * 2),
         content = {
             Box(
                 modifier
@@ -105,7 +103,7 @@ fun NumberPicker(
             ) {
                 val baseLabelModifier = Modifier.align(Alignment.Center)
                 ProvideTextStyle(textStyle) {
-                    if (range.contains(animatedStateValue - 1))
+                    if (animatedStateValue > 0)
                         Label(
                             text = label(animatedStateValue - 1),
                             modifier = baseLabelModifier
@@ -117,7 +115,7 @@ fun NumberPicker(
                         modifier = baseLabelModifier
                             .alpha((maxOf(minimumAlpha, 1 - kotlin.math.abs(coercedAnimatedOffset) / halfNumbersColumnHeightPx)))
                     )
-                    if (range.contains(animatedStateValue + 1))
+                    if (animatedStateValue < range.count() - 1)
                         Label(
                             text = label(animatedStateValue + 1),
                             modifier = baseLabelModifier

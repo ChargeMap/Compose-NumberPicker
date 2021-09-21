@@ -74,6 +74,7 @@ fun MainActivityUI() {
                             .padding(vertical = 16.dp),
                         dividersColor = MaterialTheme.colors.secondary,
                         value = hoursPicker2Value,
+                        minutesRange = IntProgression.fromClosedRange(0, 50, 10),
                         onValueChange = {
                             hoursPicker2Value = it
                         },

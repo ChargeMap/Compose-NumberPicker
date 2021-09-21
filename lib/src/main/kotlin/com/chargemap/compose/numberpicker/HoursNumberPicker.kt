@@ -34,6 +34,11 @@ data class AMPMHours(
 fun HoursNumberPicker(
     modifier: Modifier = Modifier,
     value: Hours,
+    hoursRange: Iterable<Int> = when (value) {
+        is FullHours -> (0..23)
+        is AMPMHours -> (1..12)
+    },
+    minutesRange: Iterable<Int> = (0..59),
     hoursDivider: (@Composable () -> Unit)? = null,
     minutesDivider: (@Composable () -> Unit)? = null,
     onValueChange: (Hours) -> Unit,
@@ -45,7 +50,8 @@ fun HoursNumberPicker(
             FullHoursNumberPicker(
                 modifier = modifier,
                 value = value,
-                hoursRange = (0..23),
+                hoursRange = hoursRange,
+                minutesRange = minutesRange,
                 hoursDivider = hoursDivider,
                 minutesDivider = minutesDivider,
                 onValueChange = onValueChange,
@@ -56,7 +62,8 @@ fun HoursNumberPicker(
             AMPMHoursNumberPicker(
                 modifier = modifier,
                 value = value,
-                hoursRange = (1..12),
+                hoursRange = hoursRange,
+                minutesRange = minutesRange,
                 hoursDivider = hoursDivider,
                 minutesDivider = minutesDivider,
                 onValueChange = onValueChange,
@@ -70,7 +77,8 @@ fun HoursNumberPicker(
 fun FullHoursNumberPicker(
     modifier: Modifier = Modifier,
     value: FullHours,
-    hoursRange: IntRange,
+    hoursRange: Iterable<Int>,
+    minutesRange: Iterable<Int> = (0..59),
     hoursDivider: (@Composable () -> Unit)? = null,
     minutesDivider: (@Composable () -> Unit)? = null,
     onValueChange: (Hours) -> Unit,
@@ -102,7 +110,7 @@ fun FullHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
-            range = (0..59)
+            range = minutesRange
         )
 
         minutesDivider?.invoke()
@@ -113,7 +121,8 @@ fun FullHoursNumberPicker(
 fun AMPMHoursNumberPicker(
     modifier: Modifier = Modifier,
     value: AMPMHours,
-    hoursRange: IntRange,
+    hoursRange: Iterable<Int>,
+    minutesRange: Iterable<Int> = (0..59),
     hoursDivider: (@Composable () -> Unit)? = null,
     minutesDivider: (@Composable () -> Unit)? = null,
     onValueChange: (Hours) -> Unit,
@@ -145,7 +154,7 @@ fun AMPMHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
-            range = (0..59)
+            range = minutesRange
         )
 
         minutesDivider?.invoke()

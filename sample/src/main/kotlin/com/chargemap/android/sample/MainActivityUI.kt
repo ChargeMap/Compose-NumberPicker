@@ -17,13 +17,6 @@ import com.chargemap.compose.numberpicker.*
 @Composable
 fun MainActivityUI() {
 
-    var picker1Value by remember { mutableStateOf(0) }
-
-    var hoursPicker1Value by remember { mutableStateOf<Hours>(FullHours(12, 43)) }
-    var hoursPicker2Value by remember { mutableStateOf<Hours>(AMPMHours(9, 43, AMPMHours.DayTime.PM)) }
-    var hoursPicker3Value by remember { mutableStateOf<Hours>(FullHours(9, 20)) }
-    var hoursPicker4Value by remember { mutableStateOf<Hours>(FullHours(11, 36)) }
-
     val scrollState = rememberScrollState()
 
     MaterialTheme {
@@ -42,103 +35,11 @@ fun MainActivityUI() {
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    NumberPicker(
-                        value = picker1Value,
-                        range = 0..10,
-                        onValueChange = {
-                            picker1Value = it
-                        }
-                    )
-
-                    HoursNumberPicker(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        dividersColor = MaterialTheme.colors.error,
-                        value = hoursPicker1Value,
-                        onValueChange = {
-                            hoursPicker1Value = it
-                        },
-                        hoursDivider = {
-                            Text(
-                                modifier = Modifier.size(24.dp),
-                                textAlign = TextAlign.Center,
-                                text = ":"
-                            )
-                        }
-                    )
-
-                    HoursNumberPicker(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        dividersColor = MaterialTheme.colors.secondary,
-                        value = hoursPicker2Value,
-                        onValueChange = {
-                            hoursPicker2Value = it
-                        },
-                        hoursDivider = {
-                            Text(
-                                modifier = Modifier.size(24.dp),
-                                textAlign = TextAlign.Center,
-                                text = ":"
-                            )
-                        },
-                        minutesDivider = {
-                            Spacer(
-                                modifier = Modifier.size(24.dp),
-                            )
-                        }
-                    )
-
-                    HoursNumberPicker(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        value = hoursPicker3Value,
-                        onValueChange = {
-                            hoursPicker3Value = it
-                        },
-                        minutesRange = IntProgression.fromClosedRange(0, 50, 10),
-                        hoursDivider = {
-                            Text(
-                                modifier = Modifier.padding(horizontal = 8.dp),
-                                textAlign = TextAlign.Center,
-                                text = "h"
-                            )
-                        },
-                        minutesDivider = {
-                            Text(
-                                modifier = Modifier.padding(horizontal = 8.dp),
-                                textAlign = TextAlign.Center,
-                                text = "m"
-                            )
-                        }
-                    )
-
-                    HoursNumberPicker(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        value = hoursPicker4Value,
-                        onValueChange = {
-                            hoursPicker4Value = it
-                        },
-                        hoursDivider = {
-                            Text(
-                                modifier = Modifier.padding(horizontal = 8.dp),
-                                textAlign = TextAlign.Center,
-                                text = "hours"
-                            )
-                        },
-                        minutesDivider = {
-                            Text(
-                                modifier = Modifier.padding(horizontal = 8.dp),
-                                textAlign = TextAlign.Center,
-                                text = "minutes"
-                            )
-                        }
-                    )
+                    NumberPicker()
+                    HoursNumberPicker1()
+                    HoursNumberPicker2()
+                    HoursNumberPicker3()
+                    HoursNumberPicker4()
                     DoublesPicker()
                     FruitPicker()
                     IntRangePicker()
@@ -149,8 +50,127 @@ fun MainActivityUI() {
 }
 
 @Composable
+private fun NumberPicker() {
+    var state by remember { mutableStateOf(0) }
+    NumberPicker(
+        value = state,
+        range = 0..10,
+        onValueChange = {
+            state = it
+        }
+    )
+}
+
+@Composable
+private fun HoursNumberPicker1() {
+    var state by remember { mutableStateOf<Hours>(FullHours(12, 43)) }
+    HoursNumberPicker(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp),
+        dividersColor = MaterialTheme.colors.error,
+        value = state,
+        onValueChange = {
+            state = it
+        },
+        hoursDivider = {
+            Text(
+                modifier = Modifier.size(24.dp),
+                textAlign = TextAlign.Center,
+                text = ":"
+            )
+        }
+    )
+}
+
+@Composable
+private fun HoursNumberPicker2() {
+    var state by remember { mutableStateOf<Hours>(AMPMHours(9, 43, AMPMHours.DayTime.PM)) }
+    HoursNumberPicker(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp),
+        dividersColor = MaterialTheme.colors.secondary,
+        value = state,
+        onValueChange = {
+            state = it
+        },
+        hoursDivider = {
+            Text(
+                modifier = Modifier.size(24.dp),
+                textAlign = TextAlign.Center,
+                text = ":"
+            )
+        },
+        minutesDivider = {
+            Spacer(
+                modifier = Modifier.size(24.dp),
+            )
+        }
+    )
+}
+
+@Composable
+private fun HoursNumberPicker3() {
+    var state by remember { mutableStateOf<Hours>(FullHours(9, 20)) }
+
+    HoursNumberPicker(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp),
+        value = state,
+        onValueChange = {
+            state = it
+        },
+        minutesRange = IntProgression.fromClosedRange(0, 50, 10),
+        hoursDivider = {
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                textAlign = TextAlign.Center,
+                text = "h"
+            )
+        },
+        minutesDivider = {
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                textAlign = TextAlign.Center,
+                text = "m"
+            )
+        }
+    )
+}
+
+@Composable
+private fun HoursNumberPicker4() {
+    var state by remember { mutableStateOf<Hours>(FullHours(11, 36)) }
+    HoursNumberPicker(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp),
+        value = state,
+        onValueChange = {
+            state = it
+        },
+        hoursDivider = {
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                textAlign = TextAlign.Center,
+                text = "hours"
+            )
+        },
+        minutesDivider = {
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                textAlign = TextAlign.Center,
+                text = "minutes"
+            )
+        }
+    )
+}
+
+@Composable
 private fun DoublesPicker() {
-    val possibleValues = generateSequence(0.5f, {it + 0.25f} )
+    val possibleValues = generateSequence(0.5f, { it + 0.25f })
         .takeWhile { it <= 5f }
         .toList()
     var value by remember { mutableStateOf(possibleValues[0]) }
@@ -158,19 +178,19 @@ private fun DoublesPicker() {
         label = { it.toString() },
         value = value,
         onValueChange = { value = it },
-        range = possibleValues
+        list = possibleValues
     )
 }
 
 @Composable
 private fun FruitPicker() {
-    val possibleValues = listOf("Apples", "Oranges", "Peaches", "Tomatoes")
+    val possibleValues = listOf("🍎", "🍊", "🍉", "🥭", "🍈", "🍇", "🍍")
     var value: String by remember { mutableStateOf(possibleValues[0]) }
     ListItemPicker(
-      label = { it },
-      value = value,
-      onValueChange = { value = it },
-      range = possibleValues
+        label = { it },
+        value = value,
+        onValueChange = { value = it },
+        list = possibleValues
     )
 }
 
@@ -182,6 +202,6 @@ private fun IntRangePicker() {
         label = { it.toString() },
         value = value,
         onValueChange = { value = it },
-        range = possibleValues
+        list = possibleValues
     )
 }

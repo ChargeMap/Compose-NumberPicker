@@ -37,7 +37,6 @@ private fun <T> getItemIndexForOffset(
     return maxOf(0, minOf(indexOf, range.count() - 1))
 }
 
-
 @Composable
 fun <T> ListItemPicker(
     modifier: Modifier = Modifier,
@@ -45,7 +44,7 @@ fun <T> ListItemPicker(
     value: T,
     onValueChange: (T) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
-    range: List<T>,
+    list: List<T>,
     textStyle: TextStyle = LocalTextStyle.current,
 ) {
     val minimumAlpha = 0.3f
@@ -58,9 +57,9 @@ fun <T> ListItemPicker(
 
     val animatedOffset = remember { Animatable(0f) }
         .apply {
-            val index = range.indexOf(value)
-            val offsetRange = remember(value, range) {
-                -((range.count() - 1) - index) * halfNumbersColumnHeightPx to
+            val index = list.indexOf(value)
+            val offsetRange = remember(value, list) {
+                -((list.count() - 1) - index) * halfNumbersColumnHeightPx to
                         index * halfNumbersColumnHeightPx
             }
             updateBounds(offsetRange.first, offsetRange.second)
@@ -68,8 +67,7 @@ fun <T> ListItemPicker(
 
     val coercedAnimatedOffset = animatedOffset.value % halfNumbersColumnHeightPx
 
-    val indexOfElement =
-        getItemIndexForOffset(range, value, animatedOffset.value, halfNumbersColumnHeightPx)
+    val indexOfElement = getItemIndexForOffset(list, value, animatedOffset.value, halfNumbersColumnHeightPx)
 
     var dividersWidth by remember { mutableStateOf(0.dp) }
 
@@ -97,8 +95,8 @@ fun <T> ListItemPicker(
                             }
                         ).endState.value
 
-                        val result = range.elementAt(
-                            getItemIndexForOffset(range, value, endValue, halfNumbersColumnHeightPx)
+                        val result = list.elementAt(
+                            getItemIndexForOffset(list, value, endValue, halfNumbersColumnHeightPx)
                         )
                         onValueChange(result)
                         animatedOffset.snapTo(0f)
@@ -122,13 +120,13 @@ fun <T> ListItemPicker(
                 ProvideTextStyle(textStyle) {
                     if (indexOfElement > 0)
                         Label(
-                            text = label(range.elementAt(indexOfElement - 1)),
+                            text = label(list.elementAt(indexOfElement - 1)),
                             modifier = baseLabelModifier
                                 .offset(y = -halfNumbersColumnHeight)
                                 .alpha(maxOf(minimumAlpha, coercedAnimatedOffset / halfNumbersColumnHeightPx))
                         )
                     Label(
-                        text = label(range.elementAt(indexOfElement)),
+                        text = label(list.elementAt(indexOfElement)),
                         modifier = baseLabelModifier
                             .alpha(
                                 (maxOf(
@@ -137,9 +135,9 @@ fun <T> ListItemPicker(
                                 ))
                             )
                     )
-                    if (indexOfElement < range.count() - 1)
+                    if (indexOfElement < list.count() - 1)
                         Label(
-                            text = label(range.elementAt(indexOfElement + 1)),
+                            text = label(list.elementAt(indexOfElement + 1)),
                             modifier = baseLabelModifier
                                 .offset(y = halfNumbersColumnHeight)
                                 .alpha(maxOf(minimumAlpha, -coercedAnimatedOffset / halfNumbersColumnHeightPx))

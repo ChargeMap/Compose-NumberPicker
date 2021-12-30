@@ -4,7 +4,7 @@ Android library providing a Number Picker for Jetpack Compose.
 
 [![chargemap](https://github.com/chargemap.png?size=50)](https://chargemap.com)
 
-[![Maven version](https://img.shields.io/maven-central/v/com.chargemap.compose/numberpicker?style=for-the-badge)](https://maven-badges.herokuapp.com/maven-central/com.chargemap.compose/numberpicker)
+[![Maven version](https://img.shields.io/maven-central/v/com.chargemap.compose/numberpicker?style=for-the-badge)](https://mvnrepository.com/artifact/com.chargemap.compose/numberpicker)
 
 ![License MIT](https://img.shields.io/badge/MIT-9E9F9F?style=flat-square&label=License)
 ![Android minimuml version](https://img.shields.io/badge/21+-9E9F9F?style=flat-square&label=Minimum&logo=android)

@@ -1,6 +1,5 @@
 package com.chargemap.compose.numberpicker
 
-import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation

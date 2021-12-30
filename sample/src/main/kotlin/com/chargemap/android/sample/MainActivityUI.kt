@@ -173,11 +173,11 @@ private fun DoublesPicker() {
     val possibleValues = generateSequence(0.5f, { it + 0.25f })
         .takeWhile { it <= 5f }
         .toList()
-    var value by remember { mutableStateOf(possibleValues[0]) }
+    var state by remember { mutableStateOf(possibleValues[0]) }
     ListItemPicker(
         label = { it.toString() },
-        value = value,
-        onValueChange = { value = it },
+        value = state,
+        onValueChange = { state = it },
         list = possibleValues
     )
 }
@@ -185,11 +185,11 @@ private fun DoublesPicker() {
 @Composable
 private fun FruitPicker() {
     val possibleValues = listOf("🍎", "🍊", "🍉", "🥭", "🍈", "🍇", "🍍")
-    var value: String by remember { mutableStateOf(possibleValues[0]) }
+    var state by remember { mutableStateOf(possibleValues[0]) }
     ListItemPicker(
         label = { it },
-        value = value,
-        onValueChange = { value = it },
+        value = state,
+        onValueChange = { state = it },
         list = possibleValues
     )
 }

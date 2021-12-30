@@ -27,6 +27,8 @@ dependencies {
 
 ### Simple NumberPicker
 
+<img src="art/sample_number.png" width="80"/>
+
 ```
 var pickerValue by remember { mutableStateOf(0) }
 
@@ -41,6 +43,8 @@ NumberPicker(
 ```
 
 ### 24 hours HoursNumberPicker
+
+<img src="art/sample_24hours.png" width="250"/>
 
 ```
 var pickerValue by remember { mutableStateOf<Hours>(FullHours(12, 43)) }
@@ -63,6 +67,8 @@ HoursNumberPicker(
 ```
 
 ### AM/PM HoursNumberPicker
+
+<img src="art/sample_ampm.png" width="250"/>
 
 ```
 var pickerValue by remember { mutableStateOf<Hours>(AMPMHours(9, 12, AMPMHours.DayTime.PM )) }
@@ -91,7 +97,24 @@ HoursNumberPicker(
 
 ```
 
+### List Picker
+
+<img src="art/sample_list.png" width="80"/>
+
+```
+val possibleValues = listOf("🍎", "🍊", "🍉", "🥭", "🍈", "🍇", "🍍")
+var state by remember { mutableStateOf(possibleValues[0]) }
+ListItemPicker(
+    label = { it },
+    value = state,
+    onValueChange = { state = it },
+    list = possibleValues
+)
+
+```
+
 ## Contributors
 
-| [![raphaël](https://github.com/r4phab.png?size=120)](https://github.com/r4phab) | [Raphaël Bertin](https://github.com/r4phab) |
-|:------------------------------------------------------------------------------:|--------------|
+| [![r4phab](https://github.com/r4phab.png?size=50)](https://github.com/r4phab) | [Raphaël Bertin](https://github.com/r4phab) | Author |
+|--------------|--------------|--------------|
+| [![pandasys](https://github.com/pandasys.png?size=50)](https://github.com/pandasys) | [Eric A. Snell](https://github.com/pandasys) | [Pull Request](https://github.com/ChargeMap/Compose-NumberPicker/pull/2) |

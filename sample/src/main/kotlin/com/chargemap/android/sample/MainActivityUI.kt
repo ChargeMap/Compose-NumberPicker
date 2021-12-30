@@ -139,8 +139,49 @@ fun MainActivityUI() {
                             )
                         }
                     )
+                    DoublesPicker()
+                    FruitPicker()
+                    IntRangePicker()
                 }
             }
         }
     }
+}
+
+@Composable
+private fun DoublesPicker() {
+    val possibleValues = generateSequence(0.5f, {it + 0.25f} )
+        .takeWhile { it <= 5f }
+        .toList()
+    var value by remember { mutableStateOf(possibleValues[0]) }
+    ListItemPicker(
+        label = { it.toString() },
+        value = value,
+        onValueChange = { value = it },
+        range = possibleValues
+    )
+}
+
+@Composable
+private fun FruitPicker() {
+    val possibleValues = listOf("Apples", "Oranges", "Peaches", "Tomatoes")
+    var value: String by remember { mutableStateOf(possibleValues[0]) }
+    ListItemPicker(
+      label = { it },
+      value = value,
+      onValueChange = { value = it },
+      range = possibleValues
+    )
+}
+
+@Composable
+private fun IntRangePicker() {
+    val possibleValues = (-5..10).toList()
+    var value by remember { mutableStateOf(possibleValues[0]) }
+    ListItemPicker(
+        label = { it.toString() },
+        value = value,
+        onValueChange = { value = it },
+        range = possibleValues
+    )
 }

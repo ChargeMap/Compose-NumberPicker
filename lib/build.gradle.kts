@@ -13,9 +13,10 @@ dependencies {
     api("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
     api("androidx.compose.material:material:${Versions.compose}")
 
-    testImplementation("junit:junit:4.13.1")
+    testImplementation("junit:junit:4.13.2")
 }
 
 repositories {
+    google()
     mavenCentral()
 }

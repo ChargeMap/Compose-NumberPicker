@@ -7,14 +7,13 @@ class CommonPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         project.extensions.findByType(BaseExtension::class.java)?.apply {
-            compileSdkVersion(30)
-            buildToolsVersion("30.0.2")
+            compileSdkVersion(31)
 
             defaultConfig {
                 versionCode = project.gradleProperties.getProperty("VERSION_CODE").toString().toInt()
                 versionName = project.gradleProperties.getProperty("VERSION_NAME").toString()
                 minSdk = 21
-                targetSdk = 30
+                targetSdk = 31
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 vectorDrawables.useSupportLibrary = true
             }

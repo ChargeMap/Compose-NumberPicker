@@ -4,13 +4,14 @@ plugins {
     id("kotlin-android")
     id("common")
 
-    //id("com.vanniktech.maven.publish")
-    `maven-publish`
+    id("com.vanniktech.maven.publish")
+    //`maven-publish`
 }
 
-/*mavenPublish {
+mavenPublish {
     sonatypeHost = com.vanniktech.maven.publish.SonatypeHost.S01
-}*/
+}
+
 repositories {
     google()
     mavenCentral()
@@ -22,7 +23,7 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
 }
-publishing {
+/*publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "com.github.cjrcodes"
@@ -34,4 +35,4 @@ publishing {
             }
         }
     }
-}
+}*/

@@ -18,14 +18,14 @@ import com.chargemap.compose.numberpicker.*
 @Composable
 private fun NumberPickerPreview() {
     var state by remember { mutableStateOf(0) }
-    com.chargemap.compose.numberpicker.NumberPicker(
+    NumberPicker(
         leadingZero = true,
         value = state,
         range = 0..10,
         onValueChange = {
             state = it
         },
-                textStyle = TextStyle(Color.White)
+        textStyle = TextStyle(Color.White)
 
     )
 }
@@ -51,7 +51,7 @@ private fun HoursNumberPicker1Preview() {
                 text = ":"
             )
         },
-    textStyle = TextStyle(Color.White)
+        textStyle = TextStyle(Color.White)
     )
 }
 

@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import kotlin.math.abs
 
 sealed interface Hours {
     val hours: Int
@@ -95,7 +96,9 @@ fun FullHoursNumberPicker(
     ) {
         NumberPicker(
             modifier = Modifier.weight(1f),
-            leadingZero = leadingZero,
+            label = {
+                "${if (leadingZero && abs(it) < 10) "0" else ""}$it"
+            },
             value = value.hours,
             onValueChange = {
                 onValueChange(value.copy(hours = it))
@@ -109,7 +112,9 @@ fun FullHoursNumberPicker(
 
         NumberPicker(
             modifier = Modifier.weight(1f),
-            leadingZero = leadingZero,
+            label = {
+                "${if (leadingZero && abs(it) < 10) "0" else ""}$it"
+            },
             value = value.minutes,
             onValueChange = {
                 onValueChange(value.copy(minutes = it))
@@ -143,7 +148,9 @@ fun AMPMHoursNumberPicker(
         NumberPicker(
             modifier = Modifier.weight(1f),
             value = value.hours,
-            leadingZero = leadingZero,
+            label = {
+                "${if (leadingZero && abs(it) < 10) "0" else ""}$it"
+            },
             onValueChange = {
                 onValueChange(value.copy(hours = it))
             },
@@ -156,7 +163,9 @@ fun AMPMHoursNumberPicker(
 
         NumberPicker(
             modifier = Modifier.weight(1f),
-            leadingZero = leadingZero,
+            label = {
+                "${if (leadingZero && abs(it) < 10) "0" else ""}$it"
+            },
             value = value.minutes,
             onValueChange = {
                 onValueChange(value.copy(minutes = it))
@@ -169,7 +178,6 @@ fun AMPMHoursNumberPicker(
         minutesDivider?.invoke()
 
         NumberPicker(
-            leadingZero = leadingZero,
             value = when (value.dayTime) {
                 AMPMHours.DayTime.AM -> 0
                 else -> 1

@@ -19,14 +19,12 @@ import com.chargemap.compose.numberpicker.*
 private fun NumberPickerPreview() {
     var state by remember { mutableStateOf(0) }
     NumberPicker(
-        leadingZero = true,
         value = state,
         range = 0..10,
         onValueChange = {
             state = it
         },
         textStyle = TextStyle(Color.White)
-
     )
 }
 
@@ -153,7 +151,7 @@ private fun HoursNumberPicker4Preview() {
 @Preview
 @Composable
 private fun DoublesPickerPreview() {
-    val possibleValues = generateSequence(0.5f, { it + 0.25f })
+    val possibleValues = generateSequence(0.5f) { it + 0.25f }
         .takeWhile { it <= 5f }
         .toList()
     var state by remember { mutableStateOf(possibleValues[0]) }

@@ -8,4 +8,4 @@ git push --follow-tags
 ./gradlew clean
 ./gradlew build
 ./gradlew uploadArchives --no-daemon --no-parallel
-#./gradlew closeAndReleaseRepository
+./gradlew closeAndReleaseRepository

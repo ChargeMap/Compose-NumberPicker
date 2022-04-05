@@ -174,7 +174,7 @@ private fun HoursNumberPicker4() {
 
 @Composable
 private fun DoublesPicker() {
-    val possibleValues = generateSequence(0.5f, { it + 0.25f })
+    val possibleValues = generateSequence(0.5f) { it + 0.25f }
         .takeWhile { it <= 5f }
         .toList()
     var state by remember { mutableStateOf(possibleValues[0]) }

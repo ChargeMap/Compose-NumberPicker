@@ -30,7 +30,7 @@ dependencies {
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.activity:activity-compose:1.4.0")
-    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
+    implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
     testImplementation("junit:junit:4.13.2")
 }

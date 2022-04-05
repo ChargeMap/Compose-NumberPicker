@@ -35,7 +35,7 @@ data class AMPMHours(
 fun HoursNumberPicker(
     modifier: Modifier = Modifier,
     value: Hours,
-    leadingZero: Boolean,
+    leadingZero: Boolean = true,
     hoursRange: Iterable<Int> = when (value) {
         is FullHours -> (0..23)
         is AMPMHours -> (1..12)
@@ -81,7 +81,7 @@ fun HoursNumberPicker(
 fun FullHoursNumberPicker(
     modifier: Modifier = Modifier,
     value: FullHours,
-    leadingZero: Boolean,
+    leadingZero: Boolean = true,
     hoursRange: Iterable<Int>,
     minutesRange: Iterable<Int> = (0..59),
     hoursDivider: (@Composable () -> Unit)? = null,
@@ -132,7 +132,7 @@ fun FullHoursNumberPicker(
 fun AMPMHoursNumberPicker(
     modifier: Modifier = Modifier,
     value: AMPMHours,
-    leadingZero: Boolean,
+    leadingZero: Boolean = true,
     hoursRange: Iterable<Int>,
     minutesRange: Iterable<Int> = (0..59),
     hoursDivider: (@Composable () -> Unit)? = null,

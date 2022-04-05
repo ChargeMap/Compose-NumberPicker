@@ -51,6 +51,7 @@ var pickerValue by remember { mutableStateOf<Hours>(FullHours(12, 43)) }
 
 HoursNumberPicker(
     dividersColor = MaterialTheme.colors.primary,
+    leadingZero = false,
     value = pickerValue,
     onValueChange = {
         pickerValue = it
@@ -118,3 +119,4 @@ ListItemPicker(
 | [![r4phab](https://github.com/r4phab.png?size=50)](https://github.com/r4phab) | [Raphaël Bertin](https://github.com/r4phab) | Author |
 |--------------|--------------|--------------|
 | [![pandasys](https://github.com/pandasys.png?size=50)](https://github.com/pandasys) | [Eric A. Snell](https://github.com/pandasys) | [Pull Request](https://github.com/ChargeMap/Compose-NumberPicker/pull/2) |
+| [![pandasys](https://github.com/cjrcodes.png?size=50)](https://github.com/pandasys) | [Christian R](https://github.com/cjrcodes) | [Pull Request](https://github.com/ChargeMap/Compose-NumberPicker/pull/8) |

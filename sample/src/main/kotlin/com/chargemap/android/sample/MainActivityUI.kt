@@ -53,7 +53,6 @@ fun MainActivityUI() {
 private fun NumberPicker() {
     var state by remember { mutableStateOf(0) }
     NumberPicker(
-        leadingZero = true,
         value = state,
         range = 0..10,
         onValueChange = {
@@ -68,7 +67,7 @@ private fun HoursNumberPicker1() {
     HoursNumberPicker(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp),        leadingZero = true,
+            .padding(vertical = 16.dp), leadingZero = true,
 
         dividersColor = MaterialTheme.colors.error,
         value = state,
@@ -91,7 +90,7 @@ private fun HoursNumberPicker2() {
     HoursNumberPicker(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp),        leadingZero = true,
+            .padding(vertical = 16.dp), leadingZero = true,
 
         dividersColor = MaterialTheme.colors.secondary,
         value = state,
@@ -120,7 +119,7 @@ private fun HoursNumberPicker3() {
     HoursNumberPicker(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp),        leadingZero = true,
+            .padding(vertical = 16.dp), leadingZero = true,
 
         value = state,
         onValueChange = {
@@ -150,7 +149,7 @@ private fun HoursNumberPicker4() {
     HoursNumberPicker(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp),        leadingZero = true,
+            .padding(vertical = 16.dp), leadingZero = true,
 
         value = state,
         onValueChange = {

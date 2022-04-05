@@ -34,6 +34,7 @@ data class AMPMHours(
 fun HoursNumberPicker(
     modifier: Modifier = Modifier,
     value: Hours,
+    leadingZero: Boolean,
     hoursRange: Iterable<Int> = when (value) {
         is FullHours -> (0..23)
         is AMPMHours -> (1..12)
@@ -50,6 +51,7 @@ fun HoursNumberPicker(
             FullHoursNumberPicker(
                 modifier = modifier,
                 value = value,
+                leadingZero = leadingZero,
                 hoursRange = hoursRange,
                 minutesRange = minutesRange,
                 hoursDivider = hoursDivider,
@@ -62,6 +64,7 @@ fun HoursNumberPicker(
             AMPMHoursNumberPicker(
                 modifier = modifier,
                 value = value,
+                leadingZero = leadingZero,
                 hoursRange = hoursRange,
                 minutesRange = minutesRange,
                 hoursDivider = hoursDivider,
@@ -77,6 +80,7 @@ fun HoursNumberPicker(
 fun FullHoursNumberPicker(
     modifier: Modifier = Modifier,
     value: FullHours,
+    leadingZero: Boolean,
     hoursRange: Iterable<Int>,
     minutesRange: Iterable<Int> = (0..59),
     hoursDivider: (@Composable () -> Unit)? = null,
@@ -91,6 +95,7 @@ fun FullHoursNumberPicker(
     ) {
         NumberPicker(
             modifier = Modifier.weight(1f),
+            leadingZero = leadingZero,
             value = value.hours,
             onValueChange = {
                 onValueChange(value.copy(hours = it))
@@ -104,6 +109,7 @@ fun FullHoursNumberPicker(
 
         NumberPicker(
             modifier = Modifier.weight(1f),
+            leadingZero = leadingZero,
             value = value.minutes,
             onValueChange = {
                 onValueChange(value.copy(minutes = it))
@@ -121,6 +127,7 @@ fun FullHoursNumberPicker(
 fun AMPMHoursNumberPicker(
     modifier: Modifier = Modifier,
     value: AMPMHours,
+    leadingZero: Boolean,
     hoursRange: Iterable<Int>,
     minutesRange: Iterable<Int> = (0..59),
     hoursDivider: (@Composable () -> Unit)? = null,
@@ -136,6 +143,7 @@ fun AMPMHoursNumberPicker(
         NumberPicker(
             modifier = Modifier.weight(1f),
             value = value.hours,
+            leadingZero = leadingZero,
             onValueChange = {
                 onValueChange(value.copy(hours = it))
             },
@@ -148,6 +156,7 @@ fun AMPMHoursNumberPicker(
 
         NumberPicker(
             modifier = Modifier.weight(1f),
+            leadingZero = leadingZero,
             value = value.minutes,
             onValueChange = {
                 onValueChange(value.copy(minutes = it))
@@ -160,6 +169,7 @@ fun AMPMHoursNumberPicker(
         minutesDivider?.invoke()
 
         NumberPicker(
+            leadingZero = leadingZero,
             value = when (value.dayTime) {
                 AMPMHours.DayTime.AM -> 0
                 else -> 1

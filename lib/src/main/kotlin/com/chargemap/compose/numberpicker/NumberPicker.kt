@@ -6,12 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import kotlin.math.abs
 
 @Composable
 fun NumberPicker(
     modifier: Modifier = Modifier,
+    leadingZero: Boolean,
     label: (Int) -> String = {
-        it.toString()
+        "${if(leadingZero && abs(it) < 10) "0" else ""}$it"
     },
     value: Int,
     onValueChange: (Int) -> Unit,

@@ -116,7 +116,7 @@ ListItemPicker(
 
 ## Contributors
 
-| [![r4phab](https://github.com/chargemap.png?size=50)](https://github.com/chargemap) | [Chargemap](https://github.com/chargemap) | Author |
+| [![chargemap](https://github.com/chargemap.png?size=50)](https://github.com/chargemap) | [Chargemap](https://github.com/chargemap) | Author |
 |--------------|--------------|--------------|
 | [![pandasys](https://github.com/pandasys.png?size=50)](https://github.com/pandasys) | [Eric A. Snell](https://github.com/pandasys) | [Pull Request](https://github.com/ChargeMap/Compose-NumberPicker/pull/2) |
 | [![pandasys](https://github.com/cjrcodes.png?size=50)](https://github.com/pandasys) | [Christian R](https://github.com/cjrcodes) | [Pull Request](https://github.com/ChargeMap/Compose-NumberPicker/pull/8) |

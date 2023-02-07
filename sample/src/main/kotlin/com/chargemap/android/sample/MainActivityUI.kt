@@ -3,13 +3,12 @@ package com.chargemap.android.sample
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.chargemap.compose.numberpicker.*
@@ -57,7 +56,9 @@ private fun NumberPicker() {
         range = 0..10,
         onValueChange = {
             state = it
-        }
+        },
+        textStyle = TextStyle(),
+        selectedTextStyle = TextStyle(fontWeight = FontWeight.Bold)
     )
 }
 
@@ -80,7 +81,9 @@ private fun HoursNumberPicker1() {
                 textAlign = TextAlign.Center,
                 text = ":"
             )
-        }
+        },
+        textStyle = TextStyle(),
+        selectedTextStyle = TextStyle(fontWeight = FontWeight.Bold)
     )
 }
 
@@ -182,7 +185,9 @@ private fun DoublesPicker() {
         label = { it.toString() },
         value = state,
         onValueChange = { state = it },
-        list = possibleValues
+        list = possibleValues,
+        textStyle = TextStyle(),
+        selectedTextStyle = TextStyle(fontWeight = FontWeight.Bold)
     )
 }
 

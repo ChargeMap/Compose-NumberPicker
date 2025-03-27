@@ -2,15 +2,9 @@ package com.chargemap.compose.numberpicker
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.gestures.draggable
-import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ProvideTextStyle
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,6 +40,7 @@ fun <T> ListItemPicker(
     dividersColor: Color = MaterialTheme.colors.primary,
     list: List<T>,
     textStyle: TextStyle = LocalTextStyle.current,
+    selectedTextStyle: TextStyle = LocalTextStyle.current,
 ) {
     val minimumAlpha = 0.3f
     val verticalMargin = 8.dp
@@ -117,32 +112,33 @@ fun <T> ListItemPicker(
                     .offset { IntOffset(x = 0, y = coercedAnimatedOffset.roundToInt()) }
             ) {
                 val baseLabelModifier = Modifier.align(Alignment.Center)
-                ProvideTextStyle(textStyle) {
-                    if (indexOfElement > 0)
-                        Label(
-                            text = label(list.elementAt(indexOfElement - 1)),
-                            modifier = baseLabelModifier
-                                .offset(y = -halfNumbersColumnHeight)
-                                .alpha(maxOf(minimumAlpha, coercedAnimatedOffset / halfNumbersColumnHeightPx))
-                        )
+                if (indexOfElement > 0)
                     Label(
-                        text = label(list.elementAt(indexOfElement)),
+                        text = label(list.elementAt(indexOfElement - 1)),
+                        textStyle = textStyle,
                         modifier = baseLabelModifier
-                            .alpha(
-                                (maxOf(
-                                    minimumAlpha,
-                                    1 - abs(coercedAnimatedOffset) / halfNumbersColumnHeightPx
-                                ))
-                            )
+                            .offset(y = -halfNumbersColumnHeight)
+                            .alpha(maxOf(minimumAlpha, coercedAnimatedOffset / halfNumbersColumnHeightPx))
                     )
-                    if (indexOfElement < list.count() - 1)
-                        Label(
-                            text = label(list.elementAt(indexOfElement + 1)),
-                            modifier = baseLabelModifier
-                                .offset(y = halfNumbersColumnHeight)
-                                .alpha(maxOf(minimumAlpha, -coercedAnimatedOffset / halfNumbersColumnHeightPx))
+                Label(
+                    text = label(list.elementAt(indexOfElement)),
+                    textStyle = selectedTextStyle,
+                    modifier = baseLabelModifier
+                        .alpha(
+                            (maxOf(
+                                minimumAlpha,
+                                1 - abs(coercedAnimatedOffset) / halfNumbersColumnHeightPx
+                            ))
                         )
-                }
+                )
+                if (indexOfElement < list.count() - 1)
+                    Label(
+                        text = label(list.elementAt(indexOfElement + 1)),
+                        textStyle = textStyle,
+                        modifier = baseLabelModifier
+                            .offset(y = halfNumbersColumnHeight)
+                            .alpha(maxOf(minimumAlpha, -coercedAnimatedOffset / halfNumbersColumnHeightPx))
+                    )
             }
             Box(
                 modifier
@@ -188,7 +184,11 @@ fun <T> ListItemPicker(
 }
 
 @Composable
-private fun Label(text: String, modifier: Modifier) {
+private fun Label(
+    text: String,
+    textStyle: TextStyle,
+    modifier: Modifier
+) {
     Text(
         modifier = modifier.pointerInput(Unit) {
             detectTapGestures(onLongPress = {
@@ -196,6 +196,7 @@ private fun Label(text: String, modifier: Modifier) {
             })
         },
         text = text,
+        style = textStyle,
         textAlign = TextAlign.Center,
     )
 }

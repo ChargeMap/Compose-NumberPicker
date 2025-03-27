@@ -46,6 +46,7 @@ fun HoursNumberPicker(
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
+    selectedTextStyle: TextStyle = LocalTextStyle.current,
 ) {
     when (value) {
         is FullHours ->
@@ -60,6 +61,7 @@ fun HoursNumberPicker(
                 onValueChange = onValueChange,
                 dividersColor = dividersColor,
                 textStyle = textStyle,
+                selectedTextStyle = selectedTextStyle,
             )
         is AMPMHours ->
             AMPMHoursNumberPicker(
@@ -73,6 +75,7 @@ fun HoursNumberPicker(
                 onValueChange = onValueChange,
                 dividersColor = dividersColor,
                 textStyle = textStyle,
+                selectedTextStyle = selectedTextStyle,
             )
     }
 }
@@ -89,6 +92,7 @@ fun FullHoursNumberPicker(
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
+    selectedTextStyle: TextStyle = LocalTextStyle.current,
 ) {
     Row(
         modifier = modifier,
@@ -105,6 +109,7 @@ fun FullHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
+            selectedTextStyle = selectedTextStyle,
             range = hoursRange
         )
 
@@ -121,6 +126,7 @@ fun FullHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
+            selectedTextStyle = selectedTextStyle,
             range = minutesRange
         )
 
@@ -140,6 +146,7 @@ fun AMPMHoursNumberPicker(
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
+    selectedTextStyle: TextStyle = LocalTextStyle.current,
 ) {
     Row(
         modifier = modifier,
@@ -156,6 +163,7 @@ fun AMPMHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
+            selectedTextStyle = selectedTextStyle,
             range = hoursRange
         )
 
@@ -172,6 +180,7 @@ fun AMPMHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
+            selectedTextStyle = selectedTextStyle,
             range = minutesRange
         )
 
@@ -200,6 +209,7 @@ fun AMPMHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
+            selectedTextStyle = selectedTextStyle,
             range = (0..1)
         )
     }

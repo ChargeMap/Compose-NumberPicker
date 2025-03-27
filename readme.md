@@ -1,3 +1,6 @@
+> [!WARNING]  
+> This repository is archived, it is now avalaible at https://github.com/charge-map/Compose-NumberPicker
+
 # Jetpack Compose Number Picker
 
 Android library providing a Number Picker for Jetpack Compose.
